@@ -8000,18 +8000,46 @@ const converters = {
             }
             if (dp === tuya.dataPoints.hochVoltage) {
                 result.voltage = (value[1] | value[0] << 8) / 10;
+                if ( value.length > 5 ) {
+                    result.voltage_L1 = (value[1] | value[0] << 8) / 10;
+                    result.voltage_L2 = (value[3] | value[2] << 8) / 10;
+                    result.voltage_L3 = (value[5] | value[4] << 8) / 10;
+                } else {
+                    result.voltage_L1 = 0;
+                    result.voltage_L2 = 0;
+                    result.voltage_L3 = 0;
+                }
             }
             if (dp === tuya.dataPoints.hochHistoricalVoltage) {
                 result.voltage_rms = (value[1] | value[0] << 8) / 10;
             }
             if (dp === tuya.dataPoints.hochCurrent) {
-                result.current = (value[2] | value[1] << 8) / 1000;
+                if ( value.length > 8 ) {
+                    result.current_L1 = (value[2] | value[1] << 8) / 1000;
+                    result.current_L2 = (value[5] | value[4] << 8) / 1000;
+                    result.current_L3 = (value[8] | value[7] << 8) / 1000;
+                    result.current = result.current_L1 + result.current_L2 + result.current_L3;
+                } else {
+                    result.current = (value[2] | value[1] << 8) / 1000;
+                    result.current_L1 = 0;
+                    result.current_L2 = 0;
+                    result.current_L3 = 0;
+                }
             }
             if (dp === tuya.dataPoints.hochHistoricalCurrent) {
                 result.current_average = (value[2] | value[1] << 8) / 1000;
             }
             if (dp === tuya.dataPoints.hochActivePower) {
                 result.power = (value[2] | value[1] << 8) / 10;
+                if ( value.length > 11 ) {
+                    result.power_L1 = (value[5] | value[4] << 8) / 10;
+                    result.power_L2 = (value[8] | value[7] << 8) / 10;
+                    result.power_L3 = (value[11] | value[10] << 8) / 10;
+                } else {
+                    result.power_L1 = 0;
+                    result.power_L2 = 0;
+                    result.power_L3 = 0;
+                }
             }
             if (dp === tuya.dataPoints.hochTotalActivePower) {
                 result.energy_consumed = value / 100;
