@@ -2122,6 +2122,15 @@ module.exports = [
             exposes.numeric('current', ea.STATE).withUnit('A'),
             exposes.numeric('current_average', ea.STATE).withUnit('A'),
             e.power(), e.voltage(), e.energy(), e.temperature(),
+            exposes.numeric('voltage_L1', ea.STATE).withUnit('V'),
+            exposes.numeric('voltage_L2', ea.STATE).withUnit('V'),
+            exposes.numeric('voltage_L3', ea.STATE).withUnit('V'),
+            exposes.numeric('current_L1', ea.STATE).withUnit('A'),
+            exposes.numeric('current_L2', ea.STATE).withUnit('A'),
+            exposes.numeric('current_L3', ea.STATE).withUnit('A'),
+            exposes.numeric('power_L1', ea.STATE).withUnit('W'),
+            exposes.numeric('power_L2', ea.STATE).withUnit('W'),
+            exposes.numeric('power_L3', ea.STATE).withUnit('W'),
             exposes.numeric('energy_consumed', ea.STATE).withUnit('kWh'),
             /* TODO: Add toZigbee converters for the below composites
             exposes.composite('voltage_setting', 'voltage_setting')
